@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-archival-bg text-archival-text font-sans antialiased min-h-screen overflow-x-hidden;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: theme('colors.archival-bg');
+}
+::-webkit-scrollbar-thumb {
+  background: theme('colors.archival-bg-tertiary');
+}
+::-webkit-scrollbar-thumb:hover {
+  background: theme('colors.archival-muted');
+}
