@@ -5,6 +5,7 @@ import Layout from './components/Layout'
 
 // Lazy Load Pages
 const Login = lazy(() => import('./pages/Login'));
+const Register = lazy(() => import('./pages/Register'));
 const Home = lazy(() => import('./pages/Home'));
 const Trending = lazy(() => import('./pages/Trending'));
 const VideoPlayer = lazy(() => import('./pages/VideoPlayer'));
@@ -27,7 +28,7 @@ const ProtectedRoute = ({ children }) => {
 }
 
 const FallbackLoader = () => (
-  <div className="flex justify-center items-center h-screen w-full bg-archival-bg">
+  <div className="flex justify-center items-center h-screen w-full bg-archival-bg-secondary">
     <div className="animate-pulse font-mono text-archival-muted text-sm tracking-widest uppercase">Loading Archive...</div>
   </div>
 );
@@ -38,6 +39,7 @@ function App() {
       <Suspense fallback={<FallbackLoader />}>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />

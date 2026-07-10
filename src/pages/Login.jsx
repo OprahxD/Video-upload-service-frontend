@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import api from '../api/axios';
 import './Login.css';
 
 const Login = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { login } = useAuth();
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -14,6 +15,9 @@ const Login = () => {
     // Credentials form state
     const [identifier, setIdentifier] = useState("");
     const [password, setPassword] = useState("");
+
+    // Check if there is a success message from registration redirect
+    const successMessage = location.state?.message || "";
 
     const handleGoogleSuccess = async (credentialResponse) => {
         setLoading(true);
@@ -65,6 +69,7 @@ const Login = () => {
                 <h1 className="font-serif text-3xl mb-1 text-archival-accent">Creator Registry</h1>
                 <p className="login-subtitle font-mono text-xs mb-6 text-archival-muted">Access your cataloged residues archive.</p>
                 
+                {successMessage && <div className="font-mono text-xs mb-4 text-green-400 border border-green-950 bg-green-950/20 p-2 text-center">{successMessage}</div>}
                 {error && <div className="error-message font-mono text-xs mb-4 text-red-400 border border-red-950 bg-red-950/20 p-2 text-center">{error}</div>}
                 
                 <form onSubmit={handleCredentialsSubmit} className="flex flex-col gap-4 font-mono text-sm text-left mb-6">
@@ -115,6 +120,13 @@ const Login = () => {
                         />
                     )}
                 </div>
+
+                <p className="mt-6 font-mono text-xs text-archival-muted text-center border-t border-archival-border pt-4">
+                    Don't have an account?{' '}
+                    <Link to="/register" className="text-archival-accent hover:underline">
+                        Sign Up
+                    </Link>
+                </p>
             </div>
         </div>
     );
