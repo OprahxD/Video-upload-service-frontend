@@ -159,7 +159,8 @@ const Dashboard = () => {
     const uploadMutation = useMutation({
         mutationFn: async (formData) => {
             const res = await api.post('/videos', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
+                headers: { 'Content-Type': 'multipart/form-data' },
+                timeout: 120000 // 2 minutes — uploads process synchronously now and large videos take time
             });
             return res.data;
         },
